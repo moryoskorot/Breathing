@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="shape">
+      <rect width="32" height="32" rx="7"/>
+    </clipPath>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#4d8fe8"/>
+      <stop offset="100%" stop-color="#7fb5fa"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#shape)">
+    <!-- Sand background -->
+    <rect width="32" height="32" fill="#FFEBCD"/>
+    <!-- Sky with wave horizon -->
+    <path fill="url(#sky)" d="M0,0 H32 V15 C27,12 23,17 17,13.5 C11,10 5,14.5 0,12.5 Z"/>
+    <!-- Breathing orb -->
+    <circle cx="16" cy="23" r="6.5"
+      fill="rgba(96,165,250,0.45)"
+      stroke="rgba(96,165,250,0.8)"
+      stroke-width="1.5"/>
+  </g>
+</svg>
