@@ -573,7 +573,6 @@ let sessionStart         = 0;
 // Apply saved theme immediately
 document.body.className = 'theme-' + currentTheme;
 
-const $cycleCounter   = document.getElementById('cycleCounter');
 const $arcFill        = document.getElementById('arcFill');
 const $breathOrb      = document.getElementById('breathOrb');
 const $phaseLabel     = document.getElementById('phaseLabel');
@@ -673,7 +672,6 @@ function applyPhaseVisuals(phase) {
     setNostrilState('left',  ls, ls === 'active' ? phase.action.toLowerCase() : ls === 'closed' ? 'closed' : '');
     setNostrilState('right', rs, rs === 'active' ? phase.action.toLowerCase() : rs === 'closed' ? 'closed' : '');
   }
-  $cycleCounter.textContent = cycleCount > 0 ? `cycle ${cycleCount}` : '';
 }
 
 function resetVisuals() {
@@ -685,7 +683,6 @@ function resetVisuals() {
   $breathOrb.style.transform  = '';
   setNostrilState('left',  '', '');
   setNostrilState('right', '', '');
-  $cycleCounter.textContent = '';
 }
 
 function startPhase(index) {
