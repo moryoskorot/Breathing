@@ -1,0 +1,250 @@
+/* ── Reset ───────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Themes ──────────────────────────────── */
+:root, body.theme-sand {
+  --bg:             #FFEBCD;
+  --text:           #3a2c10;
+  --text-dim:       rgba(58,44,16,0.5);
+  --text-faint:     rgba(58,44,16,0.28);
+  --text-ghost:     rgba(58,44,16,0.18);
+  --arc-track:      rgba(58,44,16,0.1);
+  --n-idle-border:  rgba(58,44,16,0.15);
+  --n-idle-bg:      rgba(58,44,16,0.04);
+  --n-idle-name:    rgba(58,44,16,0.3);
+  --n-act-border:   rgba(116,195,101,0.75);
+  --n-act-bg:       rgba(116,195,101,0.13);
+  --n-act-shadow:   rgba(116,195,101,0.28);
+  --n-act-name:     rgba(60,130,48,0.95);
+  --n-act-status:   rgba(60,130,48,0.7);
+  --n-clo-border:   rgba(180,110,55,0.35);
+  --n-clo-bg:       rgba(180,110,55,0.06);
+  --n-clo-name:     rgba(160,95,40,0.55);
+  --n-clo-status:   rgba(160,95,40,0.5);
+  --n-hld-border:   rgba(145,129,81,0.6);
+  --n-hld-bg:       rgba(145,129,81,0.1);
+  --n-hld-shadow:   rgba(145,129,81,0.2);
+  --n-hld-name:     rgba(120,106,60,0.85);
+  --n-hld-status:   rgba(120,106,60,0.65);
+  --tb-bg:          rgba(145,129,81,0.08);
+  --tb-border:      rgba(145,129,81,0.2);
+  --btn-border:     rgba(58,44,16,0.18);
+  --btn-text:       rgba(58,44,16,0.5);
+  --btn-hov-border: rgba(116,195,101,0.6);
+  --btn-hov-text:   rgba(60,130,48,0.9);
+  --btn-act-bg:     rgba(116,195,101,0.15);
+  --btn-act-border: rgba(116,195,101,0.6);
+  --btn-act-text:   rgba(60,130,48,1);
+  --play-border:    rgba(116,195,101,0.65);
+  --play-bg:        rgba(116,195,101,0.12);
+  --play-text:      rgba(60,130,48,1);
+  --play-hov-bg:    rgba(116,195,101,0.22);
+  --play-hov-shad:  rgba(116,195,101,0.3);
+  --card-bg:        rgba(58,44,16,0.05);
+  --card-border:    rgba(58,44,16,0.12);
+  --card-hover-bg:  rgba(58,44,16,0.09);
+}
+
+body.theme-dark {
+  --bg:             #090e1a;
+  --text:           #e2e8f0;
+  --text-dim:       rgba(255,255,255,0.3);
+  --text-faint:     rgba(255,255,255,0.18);
+  --text-ghost:     rgba(255,255,255,0.12);
+  --arc-track:      rgba(255,255,255,0.06);
+  --n-idle-border:  rgba(255,255,255,0.1);
+  --n-idle-bg:      rgba(255,255,255,0.03);
+  --n-idle-name:    rgba(255,255,255,0.25);
+  --n-act-border:   rgba(96,165,250,0.7);
+  --n-act-bg:       rgba(96,165,250,0.12);
+  --n-act-shadow:   rgba(96,165,250,0.35);
+  --n-act-name:     rgba(96,165,250,0.9);
+  --n-act-status:   rgba(96,165,250,0.65);
+  --n-clo-border:   rgba(251,146,60,0.35);
+  --n-clo-bg:       rgba(251,146,60,0.06);
+  --n-clo-name:     rgba(251,146,60,0.5);
+  --n-clo-status:   rgba(251,146,60,0.45);
+  --n-hld-border:   rgba(251,191,36,0.5);
+  --n-hld-bg:       rgba(251,191,36,0.08);
+  --n-hld-shadow:   rgba(251,191,36,0.2);
+  --n-hld-name:     rgba(251,191,36,0.7);
+  --n-hld-status:   rgba(251,191,36,0.55);
+  --tb-bg:          rgba(255,255,255,0.025);
+  --tb-border:      rgba(255,255,255,0.06);
+  --btn-border:     rgba(255,255,255,0.12);
+  --btn-text:       rgba(255,255,255,0.45);
+  --btn-hov-border: rgba(96,165,250,0.4);
+  --btn-hov-text:   rgba(96,165,250,0.8);
+  --btn-act-bg:     rgba(96,165,250,0.15);
+  --btn-act-border: rgba(96,165,250,0.55);
+  --btn-act-text:   rgba(96,165,250,0.95);
+  --play-border:    rgba(96,165,250,0.55);
+  --play-bg:        rgba(96,165,250,0.1);
+  --play-text:      rgba(96,165,250,0.95);
+  --play-hov-bg:    rgba(96,165,250,0.2);
+  --play-hov-shad:  rgba(96,165,250,0.3);
+  --card-bg:        rgba(255,255,255,0.04);
+  --card-border:    rgba(255,255,255,0.08);
+  --card-hover-bg:  rgba(255,255,255,0.07);
+}
+
+body.theme-light {
+  --bg:             #ffffff;
+  --text:           #1a1a2e;
+  --text-dim:       rgba(26,26,46,0.4);
+  --text-faint:     rgba(26,26,46,0.24);
+  --text-ghost:     rgba(26,26,46,0.15);
+  --arc-track:      rgba(26,26,46,0.08);
+  --n-idle-border:  rgba(26,26,46,0.12);
+  --n-idle-bg:      rgba(26,26,46,0.03);
+  --n-idle-name:    rgba(26,26,46,0.28);
+  --n-act-border:   rgba(91,158,245,0.7);
+  --n-act-bg:       rgba(91,158,245,0.12);
+  --n-act-shadow:   rgba(91,158,245,0.3);
+  --n-act-name:     rgba(30,100,200,0.9);
+  --n-act-status:   rgba(30,100,200,0.65);
+  --n-clo-border:   rgba(200,120,60,0.3);
+  --n-clo-bg:       rgba(200,120,60,0.05);
+  --n-clo-name:     rgba(170,90,30,0.5);
+  --n-clo-status:   rgba(170,90,30,0.45);
+  --n-hld-border:   rgba(145,129,81,0.45);
+  --n-hld-bg:       rgba(145,129,81,0.07);
+  --n-hld-shadow:   rgba(145,129,81,0.15);
+  --n-hld-name:     rgba(100,88,50,0.75);
+  --n-hld-status:   rgba(100,88,50,0.6);
+  --tb-bg:          rgba(26,26,46,0.04);
+  --tb-border:      rgba(26,26,46,0.1);
+  --btn-border:     rgba(26,26,46,0.15);
+  --btn-text:       rgba(26,26,46,0.45);
+  --btn-hov-border: rgba(91,158,245,0.5);
+  --btn-hov-text:   rgba(30,100,200,0.9);
+  --btn-act-bg:     rgba(91,158,245,0.12);
+  --btn-act-border: rgba(91,158,245,0.55);
+  --btn-act-text:   rgba(30,100,200,1);
+  --play-border:    rgba(91,158,245,0.6);
+  --play-bg:        rgba(91,158,245,0.1);
+  --play-text:      rgba(30,100,200,1);
+  --play-hov-bg:    rgba(91,158,245,0.2);
+  --play-hov-shad:  rgba(91,158,245,0.25);
+  --card-bg:        rgba(26,26,46,0.04);
+  --card-border:    rgba(26,26,46,0.1);
+  --card-hover-bg:  rgba(26,26,46,0.07);
+}
+
+/* ── Base ────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* ── Sky layer (sand theme only) ─────────── */
+.sky-layer {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 42%;
+  pointer-events: none;
+  z-index: 0;
+  display: none;
+}
+body.theme-sand .sky-layer { display: block; }
+.sky-layer svg { width: 100%; height: 100%; display: block; }
+
+/* ensure content sits above sky */
+.header, .main, .stage, .toolbar, .footer { position: relative; z-index: 1; }
+
+/* ── Header / Title ──────────────────────── */
+.header {
+  padding-top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.title {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── Theme swatches ──────────────────────── */
+.theme-group {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.theme-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  padding: 0;
+}
+.theme-btn:hover { transform: scale(1.2); }
+.theme-btn.active {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 2px var(--play-border);
+}
+
+/* ── Footer ──────────────────────────────── */
+.footer {
+  padding: 6px 28px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-ghost);
+}
+.footer a {
+  color: var(--text-faint);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text-ghost);
+  transition: color 0.2s;
+}
+.footer a:hover { color: var(--text-dim); }
+
+.vol-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.vol-label { font-size: 12px; }
+.vol-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--btn-border);
+  outline: none;
+  cursor: pointer;
+}
+.vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--play-text);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.vol-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+.vol-slider::-moz-range-thumb {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  border: none;
+  background: var(--play-text);
+  cursor: pointer;
+}
