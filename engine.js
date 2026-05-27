@@ -536,22 +536,24 @@
   </div>
 </div>
 <div class="toolbar">
-  <div id="engineControls"></div>
-  <button class="play-btn" id="playBtn">▶</button>
-  <div class="session-timer" id="sessionTimer">0:00</div>
-  <div class="theme-group">
-    <button class="theme-btn" data-theme="sand"  style="background:#FFEBCD;border-color:#c4b48a;"></button>
-    <button class="theme-btn" data-theme="light" style="background:#ffffff;border-color:#cccccc;"></button>
-    <button class="theme-btn" data-theme="dark"  style="background:#090e1a;border-color:#2a3a5e;"></button>
+  <div class="toolbar-main">
+    <div id="engineControls"></div>
+    <button class="play-btn" id="playBtn">▶</button>
+    <div class="session-timer" id="sessionTimer">0:00</div>
   </div>
 </div>
-<div class="footer">
+<div class="site-footer">
   <label class="vol-row">
     <span class="vol-label">🔈</span>
     <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.05" value="0.5">
     <span class="vol-label">🔊</span>
   </label>
-  <span>Made by <a href="https://www.linkedin.com/in/mor-yosef-185331196/" target="_blank" rel="noopener">Mor Yosef</a></span>
+  <span class="footer-credit">Made by <a href="https://www.linkedin.com/in/mor-yosef-185331196/" target="_blank" rel="noopener">Mor Yosef</a></span>
+  <div class="theme-group">
+    <button class="theme-btn" data-theme="sand"  style="background:#FFEBCD;border-color:#c4b48a;"></button>
+    <button class="theme-btn" data-theme="light" style="background:#ffffff;border-color:#cccccc;"></button>
+    <button class="theme-btn" data-theme="dark"  style="background:#090e1a;border-color:#2a3a5e;"></button>
+  </div>
 </div>`);
   }
 

@@ -246,6 +246,7 @@ body.theme-sand .sky-layer { display: block; }
 body.exercise-page {
   height: 100dvh;
   overflow: hidden;
+  padding-bottom: 38px; /* room for fixed site-footer */
 }
 
 /* ── Header — title on top, warns+book below it ──────── */
@@ -447,16 +448,51 @@ body.exercise-page {
 }
 
 /* ── Toolbar ─────────────────────────────── */
+/* ── Site footer — position:fixed, identical on every page ── */
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 8px 24px;
+  background: var(--bg);
+  border-top: 1px solid var(--card-border);
+  z-index: 20;
+  box-sizing: border-box;
+}
+.site-footer > :first-child { justify-self: start; }
+.site-footer .footer-credit  { justify-self: center; text-align: center; }
+.site-footer .theme-group    { justify-self: end; }
+.footer-credit {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-ghost);
+}
+.footer-credit a {
+  color: var(--text-faint);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text-ghost);
+  transition: color 0.2s;
+}
+.footer-credit a:hover { color: var(--text-dim); }
 .toolbar {
   width: 100%;
-  padding: 14px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--tb-bg);
+  border-top: 1px solid var(--tb-border);
+  flex-shrink: 0;
+}
+.toolbar-main {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
-  background: var(--tb-bg);
-  border-top: 1px solid var(--tb-border);
-  flex-shrink: 0;
+  padding: 14px 28px 14px;
 }
 .length-group { display: flex; align-items: center; gap: 6px; }
 .length-label {

@@ -7,21 +7,10 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
 <style>
-body { min-height: 100dvh; overflow-y: auto; }
+body { min-height: 100dvh; overflow-y: auto; padding-bottom: 36px; }
 .main { width: 100%; display: flex; justify-content: center; }
-.toolbar {
-  width: 100%;
-  padding: 12px 28px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--tb-bg);
-  border-top: 1px solid var(--tb-border);
-  flex-shrink: 0;
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
-}
+/* padding so last exercise card isn't hidden behind site-footer */
+body { padding-bottom: 40px; }
 
 /* Disclaimer modal */
 .disclaimer-overlay {
@@ -241,16 +230,14 @@ body { min-height: 100dvh; overflow-y: auto; }
   </div>
 </main>
 
-<div class="toolbar">
+<div class="site-footer">
+  <div></div>
+  <span class="footer-credit">Made by <a href="https://www.linkedin.com/in/mor-yosef-185331196/" target="_blank" rel="noopener">Mor Yosef</a></span>
   <div class="theme-group">
     <button class="theme-btn" data-theme="sand"  title="Sand"  style="background:#FFEBCD; border-color:#c4b48a;"></button>
     <button class="theme-btn" data-theme="light" title="Light" style="background:#ffffff; border-color:#cccccc;"></button>
     <button class="theme-btn" data-theme="dark"  title="Dark"  style="background:#090e1a; border-color:#2a3a5e;"></button>
   </div>
-</div>
-
-<div class="footer">
-  <span>Made by <a href="https://www.linkedin.com/in/mor-yosef-185331196/" target="_blank" rel="noopener">Mor Yosef</a></span>
 </div>
 
 <script>
