@@ -5,495 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nadi Shodhana</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../styles.css">
 <style>
-/* ── Reset ───────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* ── Themes ──────────────────────────────── */
-:root, body.theme-sand {
-  --bg:             #FFEBCD;
-  --text:           #3a2c10;
-  --text-dim:       rgba(58,44,16,0.5);
-  --text-faint:     rgba(58,44,16,0.28);
-  --text-ghost:     rgba(58,44,16,0.18);
-  --arc-track:      rgba(58,44,16,0.1);
-  --n-idle-border:  rgba(58,44,16,0.15);
-  --n-idle-bg:      rgba(58,44,16,0.04);
-  --n-idle-name:    rgba(58,44,16,0.3);
-  --n-act-border:   rgba(116,195,101,0.75);
-  --n-act-bg:       rgba(116,195,101,0.13);
-  --n-act-shadow:   rgba(116,195,101,0.28);
-  --n-act-name:     rgba(60,130,48,0.95);
-  --n-act-status:   rgba(60,130,48,0.7);
-  --n-clo-border:   rgba(180,110,55,0.35);
-  --n-clo-bg:       rgba(180,110,55,0.06);
-  --n-clo-name:     rgba(160,95,40,0.55);
-  --n-clo-status:   rgba(160,95,40,0.5);
-  --n-hld-border:   rgba(145,129,81,0.6);
-  --n-hld-bg:       rgba(145,129,81,0.1);
-  --n-hld-shadow:   rgba(145,129,81,0.2);
-  --n-hld-name:     rgba(120,106,60,0.85);
-  --n-hld-status:   rgba(120,106,60,0.65);
-  --tb-bg:          rgba(145,129,81,0.08);
-  --tb-border:      rgba(145,129,81,0.2);
-  --btn-border:     rgba(58,44,16,0.18);
-  --btn-text:       rgba(58,44,16,0.5);
-  --btn-hov-border: rgba(116,195,101,0.6);
-  --btn-hov-text:   rgba(60,130,48,0.9);
-  --btn-act-bg:     rgba(116,195,101,0.15);
-  --btn-act-border: rgba(116,195,101,0.6);
-  --btn-act-text:   rgba(60,130,48,1);
-  --play-border:    rgba(116,195,101,0.65);
-  --play-bg:        rgba(116,195,101,0.12);
-  --play-text:      rgba(60,130,48,1);
-  --play-hov-bg:    rgba(116,195,101,0.22);
-  --play-hov-shad:  rgba(116,195,101,0.3);
-  --card-bg:        rgba(58,44,16,0.05);
-  --card-border:    rgba(58,44,16,0.12);
-  --card-hover-bg:  rgba(58,44,16,0.09);
+/* nadi-specific: nostril orbs */
+.nostril {
+  display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100px;
 }
-body.theme-dark {
-  --bg:             #090e1a;
-  --text:           #e2e8f0;
-  --text-dim:       rgba(255,255,255,0.3);
-  --text-faint:     rgba(255,255,255,0.18);
-  --text-ghost:     rgba(255,255,255,0.12);
-  --arc-track:      rgba(255,255,255,0.06);
-  --n-idle-border:  rgba(255,255,255,0.1);
-  --n-idle-bg:      rgba(255,255,255,0.03);
-  --n-idle-name:    rgba(255,255,255,0.25);
-  --n-act-border:   rgba(96,165,250,0.7);
-  --n-act-bg:       rgba(96,165,250,0.12);
-  --n-act-shadow:   rgba(96,165,250,0.35);
-  --n-act-name:     rgba(96,165,250,0.9);
-  --n-act-status:   rgba(96,165,250,0.65);
-  --n-clo-border:   rgba(251,146,60,0.35);
-  --n-clo-bg:       rgba(251,146,60,0.06);
-  --n-clo-name:     rgba(251,146,60,0.5);
-  --n-clo-status:   rgba(251,146,60,0.45);
-  --n-hld-border:   rgba(251,191,36,0.5);
-  --n-hld-bg:       rgba(251,191,36,0.08);
-  --n-hld-shadow:   rgba(251,191,36,0.2);
-  --n-hld-name:     rgba(251,191,36,0.7);
-  --n-hld-status:   rgba(251,191,36,0.55);
-  --tb-bg:          rgba(255,255,255,0.025);
-  --tb-border:      rgba(255,255,255,0.06);
-  --btn-border:     rgba(255,255,255,0.12);
-  --btn-text:       rgba(255,255,255,0.45);
-  --btn-hov-border: rgba(96,165,250,0.4);
-  --btn-hov-text:   rgba(96,165,250,0.8);
-  --btn-act-bg:     rgba(96,165,250,0.15);
-  --btn-act-border: rgba(96,165,250,0.55);
-  --btn-act-text:   rgba(96,165,250,0.95);
-  --play-border:    rgba(96,165,250,0.55);
-  --play-bg:        rgba(96,165,250,0.1);
-  --play-text:      rgba(96,165,250,0.95);
-  --play-hov-bg:    rgba(96,165,250,0.2);
-  --play-hov-shad:  rgba(96,165,250,0.3);
-  --card-bg:        rgba(255,255,255,0.04);
-  --card-border:    rgba(255,255,255,0.08);
-  --card-hover-bg:  rgba(255,255,255,0.07);
+.nostril-orb {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 2px solid var(--n-idle-border); background: var(--n-idle-bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.5s ease; font-size: 26px;
 }
-body.theme-light {
-  --bg:             #ffffff;
-  --text:           #1a1a2e;
-  --text-dim:       rgba(26,26,46,0.4);
-  --text-faint:     rgba(26,26,46,0.24);
-  --text-ghost:     rgba(26,26,46,0.15);
-  --arc-track:      rgba(26,26,46,0.08);
-  --n-idle-border:  rgba(26,26,46,0.12);
-  --n-idle-bg:      rgba(26,26,46,0.03);
-  --n-idle-name:    rgba(26,26,46,0.28);
-  --n-act-border:   rgba(91,158,245,0.7);
-  --n-act-bg:       rgba(91,158,245,0.12);
-  --n-act-shadow:   rgba(91,158,245,0.3);
-  --n-act-name:     rgba(30,100,200,0.9);
-  --n-act-status:   rgba(30,100,200,0.65);
-  --n-clo-border:   rgba(200,120,60,0.3);
-  --n-clo-bg:       rgba(200,120,60,0.05);
-  --n-clo-name:     rgba(170,90,30,0.5);
-  --n-clo-status:   rgba(170,90,30,0.45);
-  --n-hld-border:   rgba(145,129,81,0.45);
-  --n-hld-bg:       rgba(145,129,81,0.07);
-  --n-hld-shadow:   rgba(145,129,81,0.15);
-  --n-hld-name:     rgba(100,88,50,0.75);
-  --n-hld-status:   rgba(100,88,50,0.6);
-  --tb-bg:          rgba(26,26,46,0.04);
-  --tb-border:      rgba(26,26,46,0.1);
-  --btn-border:     rgba(26,26,46,0.15);
-  --btn-text:       rgba(26,26,46,0.45);
-  --btn-hov-border: rgba(91,158,245,0.5);
-  --btn-hov-text:   rgba(30,100,200,0.9);
-  --btn-act-bg:     rgba(91,158,245,0.12);
-  --btn-act-border: rgba(91,158,245,0.55);
-  --btn-act-text:   rgba(30,100,200,1);
-  --play-border:    rgba(91,158,245,0.6);
-  --play-bg:        rgba(91,158,245,0.1);
-  --play-text:      rgba(30,100,200,1);
-  --play-hov-bg:    rgba(91,158,245,0.2);
-  --play-hov-shad:  rgba(91,158,245,0.25);
-  --card-bg:        rgba(26,26,46,0.04);
-  --card-border:    rgba(26,26,46,0.1);
-  --card-hover-bg:  rgba(26,26,46,0.07);
+.nostril-name {
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--n-idle-name); transition: color 0.5s;
 }
-
-/* ── Base ────────────────────────────────── */
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  user-select: none;
-  transition: background 0.35s ease, color 0.35s ease;
+.nostril-status {
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  min-height: 14px; color: transparent; transition: color 0.5s;
 }
-
-/* ── Sky layer ───────────────────────────── */
-.sky-layer {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 42%;
-  pointer-events: none;
-  z-index: 0;
-  display: none;
+.nostril.is-active .nostril-orb {
+  border-color: var(--n-act-border); background: var(--n-act-bg);
+  box-shadow: 0 0 22px var(--n-act-shadow), inset 0 0 10px var(--n-act-bg);
 }
-body.theme-sand .sky-layer { display: block; }
-.sky-layer svg { width: 100%; height: 100%; display: block; }
-.header, .main, .stage, .toolbar, .footer { position: relative; z-index: 1; }
-
-/* ── Header ──────────────────────────────── */
-.header {
-  padding-top: 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
+.nostril.is-active .nostril-name   { color: var(--n-act-name); }
+.nostril.is-active .nostril-status { color: var(--n-act-status); }
+.nostril.is-closed .nostril-orb { border-color: var(--n-clo-border); background: var(--n-clo-bg); }
+.nostril.is-closed .nostril-name   { color: var(--n-clo-name); }
+.nostril.is-closed .nostril-status { color: var(--n-clo-status); }
+.nostril.is-hold .nostril-orb {
+  border-color: var(--n-hld-border); background: var(--n-hld-bg);
+  box-shadow: 0 0 16px var(--n-hld-shadow);
 }
-.title {
-  font-size: 22px;
-  font-weight: 300;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-dim);
+.nostril.is-hold .nostril-name   { color: var(--n-hld-name); }
+.nostril.is-hold .nostril-status { color: var(--n-hld-status); }
+.finger-guide {
+  position: absolute; bottom: -36px;
+  font-size: 11px; color: var(--text-ghost); letter-spacing: 0.04em; white-space: nowrap;
 }
-
-/* ── Theme swatches ──────────────────────── */
-.theme-group { display: flex; align-items: center; gap: 7px; }
-.theme-btn {
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  padding: 0;
-}
-.theme-btn:hover { transform: scale(1.2); }
-.theme-btn.active {
-  transform: scale(1.25);
-  box-shadow: 0 0 0 2px var(--play-border);
-}
-
-/* ── Footer ──────────────────────────────── */
-.footer {
-  padding: 6px 28px 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--text-ghost);
-}
-.footer a {
-  color: var(--text-faint);
-  text-decoration: none;
-  border-bottom: 1px solid var(--text-ghost);
-  transition: color 0.2s;
-}
-.footer a:hover { color: var(--text-dim); }
-.vol-row { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.vol-label { font-size: 12px; }
-.vol-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100px; height: 3px;
-  border-radius: 2px;
-  background: var(--btn-border);
-  outline: none;
-  cursor: pointer;
-}
-.vol-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 13px; height: 13px;
-  border-radius: 50%;
-  background: var(--play-text);
-  cursor: pointer;
-  transition: transform 0.15s;
-}
-.vol-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
-.vol-slider::-moz-range-thumb {
-  width: 13px; height: 13px;
-  border-radius: 50%;
-  border: none;
-  background: var(--play-text);
-  cursor: pointer;
-}
-
-/* ── Nadi-specific ───────────────────────── */
-  body { overflow: hidden; height: 100dvh; }
-
-  /* ── cycle counter ───────────────────────── */
-  .cycle-counter {
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-    font-variant-numeric: tabular-nums;
-    min-height: 16px;
-  }
-
-  /* ── main stage ──────────────────────────── */
-  .stage {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 0 20px;
-  }
-
-  /* ── nostril wings ───────────────────────── */
-  .nostril {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 100px;
-  }
-  .nostril-orb {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    border: 2px solid var(--n-idle-border);
-    background: var(--n-idle-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s ease;
-    font-size: 26px;
-  }
-  .nostril-name {
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--n-idle-name);
-    transition: color 0.5s;
-  }
-  .nostril-status {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    min-height: 14px;
-    color: transparent;
-    transition: color 0.5s;
-  }
-  .nostril.is-active .nostril-orb {
-    border-color: var(--n-act-border);
-    background: var(--n-act-bg);
-    box-shadow: 0 0 22px var(--n-act-shadow), inset 0 0 10px var(--n-act-bg);
-  }
-  .nostril.is-active .nostril-name   { color: var(--n-act-name); }
-  .nostril.is-active .nostril-status { color: var(--n-act-status); }
-  .nostril.is-closed .nostril-orb {
-    border-color: var(--n-clo-border);
-    background: var(--n-clo-bg);
-  }
-  .nostril.is-closed .nostril-name   { color: var(--n-clo-name); }
-  .nostril.is-closed .nostril-status { color: var(--n-clo-status); }
-  .nostril.is-hold .nostril-orb {
-    border-color: var(--n-hld-border);
-    background: var(--n-hld-bg);
-    box-shadow: 0 0 16px var(--n-hld-shadow);
-  }
-  .nostril.is-hold .nostril-name   { color: var(--n-hld-name); }
-  .nostril.is-hold .nostril-status { color: var(--n-hld-status); }
-
-  /* ── breathing circle ────────────────────── */
-  .breath-wrap {
-    position: relative;
-    width: 220px;
-    height: 220px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .progress-svg {
-    position: absolute;
-    inset: 0;
-    transform: rotate(-90deg);
-    pointer-events: none;
-  }
-  .arc-track { fill: none; stroke: var(--arc-track); stroke-width: 3; }
-  .arc-fill  { fill: none; stroke: #74C365; stroke-width: 3; stroke-linecap: round; }
-
-  .breath-orb {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 38% 32%,
-      rgba(96,165,250,0.55) 0%,
-      rgba(59,130,246,0.35) 50%,
-      rgba(37,99,235,0.18) 100%);
-    border: 1.5px solid rgba(96,165,250,0.6);
-    box-shadow:
-      0 0 40px rgba(96,165,250,0.3),
-      0 0 80px rgba(96,165,250,0.12),
-      inset 0 0 20px rgba(96,165,250,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    will-change: transform;
-    cursor: pointer;
-  }
-  .phase-label {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,240,200,0.85);
-  }
-  .phase-countdown {
-    font-size: 42px;
-    font-weight: 200;
-    color: #fff8e8;
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-  }
-  .phase-idle {
-    font-size: 13px;
-    color: rgba(255,235,185,0.5);
-    letter-spacing: 0.05em;
-  }
-
-  /* ── finger guide ────────────────────────── */
-  .finger-guide {
-    position: absolute;
-    bottom: -36px;
-    font-size: 11px;
-    color: var(--text-ghost);
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-  }
-
-  /* ── toolbar ─────────────────────────────── */
-  .toolbar {
-    width: 100%;
-    padding: 14px 28px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    background: var(--tb-bg);
-    border-top: 1px solid var(--tb-border);
-    flex-shrink: 0;
-  }
-  .length-group {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .length-label {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin-right: 4px;
-  }
-  .len-btn {
-    padding: 5px 13px;
-    border-radius: 20px;
-    border: 1px solid var(--btn-border);
-    background: transparent;
-    color: var(--btn-text);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-  }
-  .len-btn:hover:not(.active) {
-    border-color: var(--btn-hov-border);
-    color: var(--btn-hov-text);
-  }
-  .len-btn.active {
-    background: var(--btn-act-bg);
-    border-color: var(--btn-act-border);
-    color: var(--btn-act-text);
-  }
-  .play-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid var(--play-border);
-    background: var(--play-bg);
-    color: var(--play-text);
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    font-family: inherit;
-  }
-  .play-btn:hover {
-    background: var(--play-hov-bg);
-    box-shadow: 0 0 18px var(--play-hov-shad);
-    transform: scale(1.05);
-  }
-  .play-btn:active { transform: scale(0.97); }
-  .session-timer {
-    font-size: 15px;
-    font-variant-numeric: tabular-nums;
-    font-weight: 300;
-    letter-spacing: 0.06em;
-    color: var(--text-faint);
-    min-width: 38px;
-  }
 </style>
 </head>
-<body class="theme-dark">
+<body class="exercise-page theme-dark">
 
 <div class="sky-layer">
   <svg viewBox="0 0 1440 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#4d8fe8"/>
-        <stop offset="100%" stop-color="#7fb5fa"/>
-      </linearGradient>
-    </defs>
-    <path fill="url(#skyGrad)" d="M0,0 L1440,0 L1440,260
-      C1360,235 1280,272 1160,248
-      C1040,224 940,268 800,245
-      C660,222 560,262 400,238
-      C280,220 160,255 0,235 Z"/>
+    <defs><linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4d8fe8"/><stop offset="100%" stop-color="#7fb5fa"/>
+    </linearGradient></defs>
+    <path fill="url(#skyGrad)" d="M0,0 L1440,0 L1440,260 C1360,235 1280,272 1160,248 C1040,224 940,268 800,245 C660,222 560,262 400,238 C280,220 160,255 0,235 Z"/>
   </svg>
 </div>
 
 <div class="header">
+  <a class="back-btn" href="../" title="Back">←</a>
   <div class="title">Nadi Shodhana</div>
+  <button class="about-btn" id="aboutBtn" title="About">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+  </button>
 </div>
 
-<div class="stage">
-
+<div class="stage" id="stage">
   <div class="nostril" id="nostrilLeft">
     <div class="nostril-orb">🌬</div>
     <div class="nostril-name">Left</div>
     <div class="nostril-status" id="leftStatus"></div>
   </div>
-
   <div class="breath-wrap">
     <svg class="progress-svg" viewBox="0 0 220 220" width="220" height="220">
       <circle class="arc-track" cx="110" cy="110" r="105"/>
@@ -506,23 +83,16 @@ body.theme-sand .sky-layer { display: block; }
     </div>
     <div class="finger-guide">thumb → right · ring → left</div>
   </div>
-
   <div class="nostril" id="nostrilRight">
     <div class="nostril-orb">🌬</div>
     <div class="nostril-name">Right</div>
     <div class="nostril-status" id="rightStatus"></div>
   </div>
-
 </div>
 
 <div class="toolbar">
-  <div class="length-group">
-    <span class="length-label">Length</span>
-    <button class="len-btn active" data-s="4">4 s</button>
-    <button class="len-btn" data-s="6">6 s</button>
-    <button class="len-btn" data-s="8">8 s</button>
-  </div>
-  <button class="play-btn" id="playBtn" title="Play / Pause">▶</button>
+  <div id="engineControls"></div>
+  <button class="play-btn" id="playBtn">▶</button>
   <div class="session-timer" id="sessionTimer">0:00</div>
   <div class="theme-group">
     <button class="theme-btn" data-theme="sand"  title="Sand"  style="background:#FFEBCD; border-color:#c4b48a;"></button>
@@ -540,244 +110,64 @@ body.theme-sand .sky-layer { display: block; }
   <span>Made by <a href="https://www.linkedin.com/in/mor-yosef-185331196/" target="_blank" rel="noopener">Mor Yosef</a></span>
 </div>
 
+<script src="../engine.js"></script>
 <script>
-const THEME_KEY = 'breathingTheme';
+const $nL = document.getElementById('nostrilLeft');
+const $nR = document.getElementById('nostrilRight');
+const $lS = document.getElementById('leftStatus');
+const $rS = document.getElementById('rightStatus');
 
-const PHASES = [
-  { action: 'Inhale', nostril: 'left',  close: 'right', isHold: false },
-  { action: 'Hold',   nostril: null,    close: 'both',  isHold: true  },
-  { action: 'Exhale', nostril: 'right', close: 'left',  isHold: false },
-  { action: 'Inhale', nostril: 'right', close: 'left',  isHold: false },
-  { action: 'Hold',   nostril: null,    close: 'both',  isHold: true  },
-  { action: 'Exhale', nostril: 'left',  close: 'right', isHold: false },
-];
-
-const THEME_ARC = {
-  sand:  { active: '#74C365',               hold: 'rgba(145,129,81,0.85)' },
-  dark:  { active: 'rgba(96,165,250,0.85)', hold: 'rgba(251,191,36,0.85)' },
-  light: { active: '#5b9ef5',               hold: 'rgba(145,129,81,0.7)'  },
-};
-
-let currentTheme         = localStorage.getItem(THEME_KEY) || 'dark';
-let volumeLevel          = 0.5;
-let phaseDuration        = 4;
-let currentPhaseDuration = 4;
-let isPlaying            = false;
-let phaseIndex           = 0;
-let phaseStart           = 0;
-let cycleCount           = 0;
-let raf                  = null;
-let audioCtx             = null;
-let currentSound         = null;
-let sessionStart         = 0;
-
-// Apply saved theme immediately
-document.body.className = 'theme-' + currentTheme;
-
-const $arcFill        = document.getElementById('arcFill');
-const $breathOrb      = document.getElementById('breathOrb');
-const $phaseLabel     = document.getElementById('phaseLabel');
-const $phaseCountdown = document.getElementById('phaseCountdown');
-const $phaseIdle      = document.getElementById('phaseIdle');
-const $nostrilLeft    = document.getElementById('nostrilLeft');
-const $nostrilRight   = document.getElementById('nostrilRight');
-const $leftStatus     = document.getElementById('leftStatus');
-const $rightStatus    = document.getElementById('rightStatus');
-const $playBtn        = document.getElementById('playBtn');
-const $sessionTimer   = document.getElementById('sessionTimer');
-
-const R = 105;
-const C = 2 * Math.PI * R;
-$arcFill.style.strokeDasharray  = C;
-$arcFill.style.strokeDashoffset = C;
-$arcFill.style.stroke = THEME_ARC[currentTheme].active;
-
-function getAudioCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
+function setNostrilState(side, state, txt) {
+  const el = side === 'left' ? $nL : $nR;
+  const st = side === 'left' ? $lS : $rS;
+  el.className = 'nostril' + (state ? ' is-' + state : '');
+  st.textContent = txt;
 }
 
-function makePinkNoise(ctx, durationSec) {
-  const len  = Math.ceil(ctx.sampleRate * durationSec);
-  const buf  = ctx.createBuffer(1, len, ctx.sampleRate);
-  const data = buf.getChannelData(0);
-  let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
-  for (let i = 0; i < len; i++) {
-    const w = Math.random() * 2 - 1;
-    b0=0.99886*b0+w*0.0555179; b1=0.99332*b1+w*0.0750759;
-    b2=0.96900*b2+w*0.1538520; b3=0.86650*b3+w*0.3104856;
-    b4=0.55000*b4+w*0.5329522; b5=-0.76160*b5-w*0.0168980;
-    data[i] = (b0+b1+b2+b3+b4+b5+b6+w*0.5362) * 0.11;
-    b6 = w * 0.115926;
-  }
-  return buf;
-}
-
-function playBreathSound(action, durationSec) {
-  const ctx = getAudioCtx();
-  if (ctx.state === 'suspended') ctx.resume();
-  if (currentSound) { try { currentSound.stop(0); } catch(_) {} }
-
-  const src  = ctx.createBufferSource();
-  src.buffer = makePinkNoise(ctx, durationSec);
-
-  const bpf = ctx.createBiquadFilter();
-  bpf.type  = 'bandpass';
-  bpf.Q.value = 1.4;
-
-  const gain = ctx.createGain();
-  const now  = ctx.currentTime;
-  const end  = now + durationSec;
-  const ramp = durationSec * 0.12;
-
-  if (action === 'Inhale') {
-    bpf.frequency.setValueAtTime(350, now);
-    bpf.frequency.exponentialRampToValueAtTime(1100, end - ramp);
-  } else {
-    bpf.frequency.setValueAtTime(1100, now);
-    bpf.frequency.exponentialRampToValueAtTime(300, end - ramp);
-  }
-
-  const peak = 0.32 * volumeLevel;
-  gain.gain.setValueAtTime(0, now);
-  gain.gain.linearRampToValueAtTime(peak, now + ramp * 1.5);
-  gain.gain.setValueAtTime(peak * 0.94, end - ramp * 2);
-  gain.gain.linearRampToValueAtTime(0, end);
-
-  src.connect(bpf); bpf.connect(gain); gain.connect(ctx.destination);
-  src.start(now);
-  currentSound = src;
-}
-
-function setNostrilState(side, state, statusText) {
-  const el     = side === 'left' ? $nostrilLeft  : $nostrilRight;
-  const status = side === 'left' ? $leftStatus   : $rightStatus;
-  el.className = 'nostril' + (state ? ` is-${state}` : '');
-  status.textContent = statusText;
-}
-
-function applyPhaseVisuals(phase) {
-  $phaseLabel.textContent     = phase.action;
-  $phaseCountdown.textContent = Math.round(currentPhaseDuration);
-  $phaseIdle.style.display    = 'none';
-  $arcFill.style.stroke = phase.isHold
-    ? THEME_ARC[currentTheme].hold
-    : THEME_ARC[currentTheme].active;
-
-  if (phase.close === 'both') {
-    setNostrilState('left',  'hold', 'hold');
-    setNostrilState('right', 'hold', 'hold');
-  } else {
-    const ls = phase.nostril === 'left'  ? 'active' : (phase.close === 'left'  ? 'closed' : '');
-    const rs = phase.nostril === 'right' ? 'active' : (phase.close === 'right' ? 'closed' : '');
-    setNostrilState('left',  ls, ls === 'active' ? phase.action.toLowerCase() : ls === 'closed' ? 'closed' : '');
-    setNostrilState('right', rs, rs === 'active' ? phase.action.toLowerCase() : rs === 'closed' ? 'closed' : '');
-  }
-}
-
-function resetVisuals() {
-  $phaseLabel.textContent     = '';
-  $phaseCountdown.textContent = '';
-  $phaseIdle.style.display    = '';
-  $arcFill.style.strokeDashoffset = C;
-  $arcFill.style.stroke = THEME_ARC[currentTheme].active;
-  $breathOrb.style.transform  = '';
-  setNostrilState('left',  '', '');
-  setNostrilState('right', '', '');
-}
-
-function startPhase(index) {
-  phaseIndex = ((index % PHASES.length) + PHASES.length) % PHASES.length;
-  if (phaseIndex === 0) cycleCount++;
-  const phase = PHASES[phaseIndex];
-  phaseStart  = performance.now();
-  currentPhaseDuration = phase.isHold             ? phaseDuration * 1.5
-                       : phase.action === 'Exhale' ? phaseDuration * 2
-                       : phaseDuration;
-  applyPhaseVisuals(phase);
-  if (!phase.isHold) playBreathSound(phase.action, currentPhaseDuration);
-}
-
-function tick(now) {
-  if (!isPlaying) return;
-  const elapsed   = (now - phaseStart) / 1000;
-  const progress  = Math.min(1, elapsed / currentPhaseDuration);
-  const remaining = Math.ceil(Math.max(0, currentPhaseDuration - elapsed));
-
-  const totalSec = Math.floor((now - sessionStart) / 1000);
-  $sessionTimer.textContent = `${Math.floor(totalSec/60)}:${String(totalSec%60).padStart(2,'0')}`;
-  $phaseCountdown.textContent = remaining;
-  $arcFill.style.strokeDashoffset = C * (1 - progress);
-
-  const phase = PHASES[phaseIndex];
-  const ease  = progress < 0.5 ? 2*progress*progress : -1+(4-2*progress)*progress;
-  const scale = phase.isHold    ? 1.00
-    : phase.action === 'Inhale' ? 0.84 + 0.16 * ease
-    :                             1.00 - 0.16 * ease;
-  $breathOrb.style.transform = `scale(${scale.toFixed(4)})`;
-
-  if (elapsed >= currentPhaseDuration) startPhase(phaseIndex + 1);
-  raf = requestAnimationFrame(tick);
-}
-
-function play() {
-  isPlaying    = true;
-  cycleCount   = 0;
-  sessionStart = performance.now();
-  $playBtn.textContent        = '⏸';
-  $sessionTimer.textContent   = '0:00';
-  startPhase(phaseIndex);
-  raf = requestAnimationFrame(tick);
-}
-
-function pause() {
-  isPlaying = false;
-  $playBtn.textContent = '▶';
-  if (raf) cancelAnimationFrame(raf);
-  if (currentSound) { try { currentSound.stop(0); } catch(_) {} }
-}
-
-$breathOrb.addEventListener('click', () => $playBtn.click());
-
-$playBtn.addEventListener('click', () => {
-  if (isPlaying) { pause(); resetVisuals(); phaseIndex = 0; }
-  else           { play(); }
+BreathingEngine.init({
+  title: 'Nadi Shodhana',
+  mode: 'fixed-cycle',
+  phases: [
+    { label: 'Inhale', durationFn: s=>s,     audioType: 'nasal-in-muted',  isHold: false, orbScale: 'inhale', nostril: 'left',  close: 'right' },
+    { label: 'Hold',   durationFn: s=>s*1.5, audioType: 'silent',          isHold: true,  orbScale: 'hold',   nostril: null,    close: 'both'  },
+    { label: 'Exhale', durationFn: s=>s*2,   audioType: 'nasal-out-muted', isHold: false, orbScale: 'exhale', nostril: 'right', close: 'left'  },
+    { label: 'Inhale', durationFn: s=>s,     audioType: 'nasal-in-muted',  isHold: false, orbScale: 'inhale', nostril: 'right', close: 'left'  },
+    { label: 'Hold',   durationFn: s=>s*1.5, audioType: 'silent',          isHold: true,  orbScale: 'hold',   nostril: null,    close: 'both'  },
+    { label: 'Exhale', durationFn: s=>s*2,   audioType: 'nasal-out-muted', isHold: false, orbScale: 'exhale', nostril: 'left',  close: 'right' },
+  ],
+  controls: { lengths: [4, 6, 8], defaultLength: 4 },
+  indicator: 'nadi',
+  onPhaseStart(phase) {
+    if (phase.close === 'both') {
+      setNostrilState('left',  'hold', 'hold');
+      setNostrilState('right', 'hold', 'hold');
+    } else {
+      const ls = phase.nostril === 'left'  ? 'active' : (phase.close === 'left'  ? 'closed' : '');
+      const rs = phase.nostril === 'right' ? 'active' : (phase.close === 'right' ? 'closed' : '');
+      setNostrilState('left',  ls, ls === 'active' ? phase.label.toLowerCase() : ls === 'closed' ? 'closed' : '');
+      setNostrilState('right', rs, rs === 'active' ? phase.label.toLowerCase() : rs === 'closed' ? 'closed' : '');
+    }
+  },
+  onStop() {
+    setNostrilState('left',  '', '');
+    setNostrilState('right', '', '');
+  },
+  about: {
+    description: 'Alternate-nostril breathing from Hatha Yoga. Inhale through one nostril while blocking the other, then switch — balancing the nervous system and calming the mind.',
+    benefits: [
+      'Balances left and right brain hemispheres',
+      'Reduces anxiety and stress rapidly',
+      'Lowers heart rate and blood pressure',
+      'Improves focus and mental clarity',
+      'Traditionally purifies the energy channels (nadis)',
+    ],
+    cautions: [
+      'Avoid if congested — breathe gently through any partial blockage',
+      'Keep the breath smooth; never force',
+      'Consult a doctor if you have severe cardiovascular or respiratory conditions',
+    ],
+  },
 });
-
-document.querySelectorAll('.len-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.classList.contains('active')) return;
-    const wasPlaying = isPlaying;
-    if (wasPlaying) pause();
-    document.querySelectorAll('.len-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    phaseDuration = parseInt(btn.dataset.s, 10);
-    phaseIndex = 0; cycleCount = 0;
-    if (wasPlaying) play(); else resetVisuals();
-  });
-});
-
-document.getElementById('volSlider').addEventListener('input', e => {
-  volumeLevel = parseFloat(e.target.value);
-});
-
-document.querySelectorAll('.theme-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    currentTheme = btn.dataset.theme;
-    document.body.className = 'theme-' + currentTheme;
-    localStorage.setItem(THEME_KEY, currentTheme);
-    document.querySelectorAll('.theme-btn').forEach(b =>
-      b.classList.toggle('active', b.dataset.theme === currentTheme));
-    const phase = isPlaying ? PHASES[phaseIndex] : null;
-    $arcFill.style.stroke = (phase?.isHold)
-      ? THEME_ARC[currentTheme].hold
-      : THEME_ARC[currentTheme].active;
-  });
-});
-
-// Activate the correct theme swatch on load
-document.querySelectorAll('.theme-btn').forEach(b =>
-  b.classList.toggle('active', b.dataset.theme === currentTheme));
 </script>
 </body>
 </html>

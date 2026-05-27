@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wim Hof Method</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* open-ended "tap to continue" pulse on the orb */
+@keyframes orbPulse {
+  0%, 100% { box-shadow: 0 0 40px rgba(96,165,250,0.3), 0 0 80px rgba(96,165,250,0.12), inset 0 0 20px rgba(96,165,250,0.1); }
+  50%       { box-shadow: 0 0 60px rgba(96,165,250,0.55), 0 0 110px rgba(96,165,250,0.22), inset 0 0 28px rgba(96,165,250,0.18); }
+}
+.breath-orb.open-ended { animation: orbPulse 2s ease-in-out infinite; }
+</style>
+</head>
+<body class="exercise-page theme-dark">
+
+<div class="sky-layer">
+  <svg viewBox="0 0 1440 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4d8fe8"/><stop offset="100%" stop-color="#7fb5fa"/>
+    </linearGradient></defs>
+    <path fill="url(#skyGrad)" d="M0,0 L1440,0 L1440,260 C1360,235 1280,272 1160,248 C1040,224 940,268 800,245 C660,222 560,262 400,238 C280,220 160,255 0,235 Z"/>
+  </svg>
+</div>
+
+<div class="header">
+  <a class="back-btn" href="../" title="Back">←</a>
+  <div class="title">Wim Hof</div>
+  <button class="about-btn" id="aboutBtn" title="About">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+  </button>
+</div>
+
+<div class="stage" id="stage">
+  <div class="breath-wrap">
+    <svg class="progress-svg" viewBox="0 0 220 220" width="220" height="220">
+      <circle class="arc-track" cx="110" cy="110" r="105"/>
+      <circle class="arc-fill"  cx="110" cy="110" r="105" id="arcFill"/>
+    </svg>
+    <div class="breath-orb" id="breathOrb">
+      <div class="phase-label" id="phaseLabel"></div>
+      <div class="phase-countdown" id="phaseCountdown"></div>
+      <div class="phase-idle" id="phaseIdle">press play</div>
+    </div>
+  </div>
+</div>
+
+<div class="toolbar">
+  <div id="engineControls"></div>
+  <button class="play-btn" id="playBtn">▶</button>
+  <div class="session-timer" id="sessionTimer">0:00</div>
+  <div class="theme-group">
+    <button class="theme-btn" data-theme="sand"  style="background:#FFEBCD; border-color:#c4b48a;"></button>
+    <button class="theme-btn" data-theme="light" style="background:#ffffff; border-color:#cccccc;"></button>
+    <button class="theme-btn" data-theme="dark"  style="background:#090e1a; border-color:#2a3a5e;"></button>
+  </div>
+</div>
+
+<div class="footer">
+  <label class="vol-row">
+    <span class="vol-label">🔈</span>
+    <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.05" value="0.5">
+    <span class="vol-label">🔊</span>
+  </label>
+  <span>Made by <a href="https://www.linkedin.com/in/mor-yosef-185331196/" target="_blank" rel="noopener">Mor Yosef</a></span>
+</div>
+
+<script src="../engine.js"></script>
+<script>
+const $orb = document.getElementById('breathOrb');
+
+const powerRound = {
+  phases: [
+    { label: 'Inhale', duration: 1.5, audioType: 'power', isHold: false, orbScale: 'inhale', indicator: { active: 'nose' } },
+    { label: 'Exhale', duration: 0.5, audioType: 'power', isHold: false, orbScale: 'exhale', indicator: { active: 'mouth'} },
+  ],
+  count: 30,
+  endPhases: [
+    { label: 'Holding in', duration: 120, audioType: 'silent', isHold: true,  orbScale: 'hold', openEnded: true, hint: 'tap to exhale', indicator: { active: null } },
+    { label: 'Recovery', duration: 15,  audioType: 'nasal-in', isHold: false, orbScale: 'inhale', indicator: { active: 'nose' } },
+  ],
+  restPhase: { label: 'Rest', duration: 15, audioType: 'silent', isHold: true, orbScale: 'hold', indicator: { active: null } },
+};
+
+BreathingEngine.init({
+  title: 'Wim Hof',
+  mode: 'count-based',
+  rounds: [ powerRound, powerRound, powerRound ],
+  controls: {},
+  indicator: 'none',
+  onPhaseStart(phase) {
+    if (phase.openEnded) {
+      $orb.classList.add('open-ended');
+    } else {
+      $orb.classList.remove('open-ended');
+    }
+  },
+  onStop() { $orb.classList.remove('open-ended'); },
+  safety: {
+    key: 'wimhof',
+    title: 'Wim Hof Method — Safety Notice',
+    body: 'This technique involves controlled hyperventilation which can cause dizziness or fainting. Always practice seated or lying down. Never practice near water, while driving, or standing. Stop immediately if you feel unwell.\n\nContraindicated in: pregnancy, epilepsy, cardiovascular disease, severe hypertension, and panic disorder.',
+  },
+  about: {
+    description: '3 rounds of 30 power breaths (deep inhale, relaxed exhale), followed by an empty-lung retention held as long as comfortable, then a 15-second recovery hold. Always seated or lying down.',
+    benefits: [
+      'Documented immune modulation: TNF-α 53% lower, IL-10 194% higher (Kox et al., PNAS 2014)',
+      'Adrenaline surge and transient respiratory alkalosis',
+      'Improved cold tolerance and perceived energy',
+      'Sharpens focus and mood post-session',
+    ],
+    cautions: [
+      'Never near water, while driving, or standing — syncope risk',
+      'Contraindicated in pregnancy, epilepsy, cardiovascular disease, hypertension, panic disorder',
+      'Tingling and lightheadedness during power breaths is expected but should resolve',
+      'Practice on an empty stomach, morning preferred',
+    ],
+  },
+});
+</script>
+</body>
+</html>

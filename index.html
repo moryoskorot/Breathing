@@ -5,129 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Breathing</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<script>
-  (function() {
-    const t = localStorage.getItem('breathingTheme') || 'sand';
-    document.addEventListener('DOMContentLoaded', () => {
-      document.body.className = 'theme-' + t;
-      document.querySelectorAll('.theme-btn').forEach(b =>
-        b.classList.toggle('active', b.dataset.theme === t));
-    });
-  })();
-</script>
+<link rel="stylesheet" href="styles.css">
 <style>
-/* ── Reset ───────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* ── Themes ──────────────────────────────── */
-:root, body.theme-sand {
-  --bg:             #FFEBCD;
-  --text:           #3a2c10;
-  --text-dim:       rgba(58,44,16,0.5);
-  --text-faint:     rgba(58,44,16,0.28);
-  --text-ghost:     rgba(58,44,16,0.18);
-  --tb-bg:          rgba(145,129,81,0.08);
-  --tb-border:      rgba(145,129,81,0.2);
-  --btn-border:     rgba(58,44,16,0.18);
-  --card-bg:        rgba(58,44,16,0.05);
-  --card-border:    rgba(58,44,16,0.12);
-  --card-hover-bg:  rgba(58,44,16,0.09);
-  --play-border:    rgba(116,195,101,0.65);
-  --play-text:      rgba(60,130,48,1);
-}
-body.theme-dark {
-  --bg:             #090e1a;
-  --text:           #e2e8f0;
-  --text-dim:       rgba(255,255,255,0.3);
-  --text-faint:     rgba(255,255,255,0.18);
-  --text-ghost:     rgba(255,255,255,0.12);
-  --tb-bg:          rgba(255,255,255,0.025);
-  --tb-border:      rgba(255,255,255,0.06);
-  --btn-border:     rgba(255,255,255,0.12);
-  --card-bg:        rgba(255,255,255,0.04);
-  --card-border:    rgba(255,255,255,0.08);
-  --card-hover-bg:  rgba(255,255,255,0.07);
-  --play-border:    rgba(96,165,250,0.55);
-  --play-text:      rgba(96,165,250,0.95);
-}
-body.theme-light {
-  --bg:             #ffffff;
-  --text:           #1a1a2e;
-  --text-dim:       rgba(26,26,46,0.4);
-  --text-faint:     rgba(26,26,46,0.24);
-  --text-ghost:     rgba(26,26,46,0.15);
-  --tb-bg:          rgba(26,26,46,0.04);
-  --tb-border:      rgba(26,26,46,0.1);
-  --btn-border:     rgba(26,26,46,0.15);
-  --card-bg:        rgba(26,26,46,0.04);
-  --card-border:    rgba(26,26,46,0.1);
-  --card-hover-bg:  rgba(26,26,46,0.07);
-  --play-border:    rgba(91,158,245,0.6);
-  --play-text:      rgba(30,100,200,1);
-}
-
-/* ── Base ────────────────────────────────── */
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  height: 100dvh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  user-select: none;
-  transition: background 0.35s ease, color 0.35s ease;
-}
-
-/* ── Sky layer ───────────────────────────── */
-.sky-layer {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 42%;
-  pointer-events: none;
-  z-index: 0;
-  display: none;
-}
-body.theme-sand .sky-layer { display: block; }
-.sky-layer svg { width: 100%; height: 100%; display: block; }
-
-.main, .toolbar, .footer { position: relative; z-index: 1; }
-
-/* ── Main ────────────────────────────────── */
-.main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ── Exercise button ─────────────────────── */
-.exercise-btn {
-  padding: 16px 44px;
-  border-radius: 100px;
-  border: 1px solid var(--card-border);
-  background: var(--card-bg);
-  color: var(--text-dim);
-  font-family: inherit;
-  font-size: 17px;
-  font-weight: 300;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.18s, box-shadow 0.2s;
-}
-.exercise-btn:hover {
-  background: var(--card-hover-bg);
-  border-color: var(--play-border);
-  color: var(--play-text);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.09);
-}
-.exercise-btn:active { transform: translateY(0); }
-
-/* ── Toolbar ─────────────────────────────── */
+body { min-height: 100dvh; overflow-y: auto; }
+.main { width: 100%; display: flex; justify-content: center; }
 .toolbar {
   width: 100%;
   padding: 12px 28px 16px;
@@ -137,37 +18,10 @@ body.theme-sand .sky-layer { display: block; }
   background: var(--tb-bg);
   border-top: 1px solid var(--tb-border);
   flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
-.theme-group { display: flex; align-items: center; gap: 7px; }
-.theme-btn {
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
-  padding: 0;
-}
-.theme-btn:hover { transform: scale(1.2); }
-.theme-btn.active {
-  transform: scale(1.25);
-  box-shadow: 0 0 0 2px var(--play-border);
-}
-
-/* ── Footer ──────────────────────────────── */
-.footer {
-  padding: 6px 28px 12px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--text-ghost);
-  position: relative; z-index: 1;
-}
-.footer a {
-  color: var(--text-faint);
-  text-decoration: none;
-  border-bottom: 1px solid var(--text-ghost);
-  transition: color 0.2s;
-}
-.footer a:hover { color: var(--text-dim); }
 </style>
 </head>
 <body class="theme-dark">
@@ -189,14 +43,41 @@ body.theme-sand .sky-layer { display: block; }
 </div>
 
 <main class="main">
-  <a class="exercise-btn" href="./nadi/">Nadi Shodhana</a>
+  <div class="exercise-grid">
+
+    <div class="tier-section">
+      <div class="tier-label">Foundations</div>
+      <a class="exercise-btn" href="./box/">Box Breathing</a>
+      <a class="exercise-btn" href="./coherent/">Coherent Breathing</a>
+      <a class="exercise-btn" href="./478/">4-7-8 Breathing</a>
+      <a class="exercise-btn" href="./diaphragmatic/">Diaphragmatic</a>
+      <a class="exercise-btn" href="./sigh/">Physiological Sigh</a>
+      <a class="exercise-btn" href="./nadi/">Nadi Shodhana</a>
+    </div>
+
+    <div class="tier-section">
+      <div class="tier-label">Yoga · Pranayama</div>
+      <a class="exercise-btn" href="./ujjayi/">Ujjayi</a>
+      <a class="exercise-btn" href="./bhramari/">Bhramari</a>
+      <a class="exercise-btn" href="./lions/">Lion's Breath</a>
+      <a class="exercise-btn" href="./sitali/">Sitali</a>
+    </div>
+
+    <div class="tier-section">
+      <div class="tier-label">Advanced</div>
+      <a class="exercise-btn advanced" href="./wimhof/">Wim Hof</a>
+      <a class="exercise-btn advanced" href="./kapalabhati/">Kapalabhati</a>
+      <a class="exercise-btn advanced" href="./bhastrika/">Bhastrika</a>
+    </div>
+
+  </div>
 </main>
 
 <div class="toolbar">
   <div class="theme-group">
     <button class="theme-btn" data-theme="sand"  title="Sand"  style="background:#FFEBCD; border-color:#c4b48a;"></button>
-    <button class="theme-btn"        data-theme="light" title="Light" style="background:#ffffff; border-color:#cccccc;"></button>
-    <button class="theme-btn"        data-theme="dark"  title="Dark"  style="background:#090e1a; border-color:#2a3a5e;"></button>
+    <button class="theme-btn" data-theme="light" title="Light" style="background:#ffffff; border-color:#cccccc;"></button>
+    <button class="theme-btn" data-theme="dark"  title="Dark"  style="background:#090e1a; border-color:#2a3a5e;"></button>
   </div>
 </div>
 
@@ -210,7 +91,6 @@ let currentTheme = localStorage.getItem(THEME_KEY) || 'dark';
 document.body.className = 'theme-' + currentTheme;
 document.querySelectorAll('.theme-btn').forEach(b =>
   b.classList.toggle('active', b.dataset.theme === currentTheme));
-
 document.querySelectorAll('.theme-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     currentTheme = btn.dataset.theme;
