@@ -4,71 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhastrika</title>
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" href="../favicon.svg">
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body class="exercise-page theme-dark">
-
-<div class="sky-layer">
-  <svg viewBox="0 0 1440 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <defs><linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#4d8fe8"/><stop offset="100%" stop-color="#7fb5fa"/>
-    </linearGradient></defs>
-    <path fill="url(#skyGrad)" d="M0,0 L1440,0 L1440,260 C1360,235 1280,272 1160,248 C1040,224 940,268 800,245 C660,222 560,262 400,238 C280,220 160,255 0,235 Z"/>
-  </svg>
-</div>
-
-<div class="header">
-  <a class="back-btn" href="../" title="Back">←</a>
-  <div class="title">Bhastrika</div>
-  <button class="about-btn" id="aboutBtn" title="About">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-  </button>
-</div>
-
-<div class="stage" id="stage">
-  <div class="breath-wrap">
-    <svg class="progress-svg" viewBox="0 0 220 220" width="220" height="220">
-      <circle class="arc-track" cx="110" cy="110" r="105"/>
-      <circle class="arc-fill"  cx="110" cy="110" r="105" id="arcFill"/>
-    </svg>
-    <div class="breath-orb" id="breathOrb">
-      <div class="phase-label" id="phaseLabel"></div>
-      <div class="phase-countdown" id="phaseCountdown"></div>
-      <div class="phase-idle" id="phaseIdle">press play</div>
-    </div>
-  </div>
-</div>
-
-<div class="toolbar">
-  <div id="engineControls"></div>
-  <button class="play-btn" id="playBtn">▶</button>
-  <div class="session-timer" id="sessionTimer">0:00</div>
-  <div class="theme-group">
-    <button class="theme-btn" data-theme="sand"  style="background:#FFEBCD; border-color:#c4b48a;"></button>
-    <button class="theme-btn" data-theme="light" style="background:#ffffff; border-color:#cccccc;"></button>
-    <button class="theme-btn" data-theme="dark"  style="background:#090e1a; border-color:#2a3a5e;"></button>
-  </div>
-</div>
-
-<div class="footer">
-  <label class="vol-row">
-    <span class="vol-label">🔈</span>
-    <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.05" value="0.5">
-    <span class="vol-label">🔊</span>
-  </label>
-  <span>Made by <a href="https://www.linkedin.com/in/mor-yosef-185331196/" target="_blank" rel="noopener">Mor Yosef</a></span>
-</div>
-
 <script src="../engine.js"></script>
 <script>
 const bhasRound = {
   phases: [
-    { label: 'Inhale', duration: 1, audioType: 'power', isHold: false, orbScale: 'inhale', indicator: { active: 'nose' } },
-    { label: 'Exhale', duration: 1, audioType: 'power', isHold: false, orbScale: 'exhale', indicator: { active: 'nose' } },
+    { label: 'Inhale', duration: 1, audio: 'power', scale: 'inhale', via: 'nose' },
+    { label: 'Exhale', duration: 1, audio: 'power', scale: 'exhale', via: 'nose' },
   ],
   count: 10,
-  restPhase: { label: 'Rest', duration: 20, audioType: 'silent', isHold: true, orbScale: 'hold', indicator: { active: null } },
+  restPhase: { label: 'Rest', duration: 20, audio: 'silent', scale: 'hold' },
 };
 
 BreathingEngine.init({
@@ -76,11 +24,11 @@ BreathingEngine.init({
   mode: 'count-based',
   rounds: [ bhasRound, bhasRound, bhasRound ],
   controls: {},
-  indicator: 'nose-only',
   safety: {
     key: 'bhastrika',
     title: 'Bhastrika — Safety Notice',
     body: 'Bellows Breath is a vigorous, heating pranayama. Both inhale and exhale are forceful. Contraindicated in: pregnancy, menstruation, hypertension, cardiovascular disease, hernia, vertigo, recent abdominal surgery, glaucoma, retinal detachment, and epilepsy. Requires diaphragmatic-breathing competence. Stop immediately if dizzy.',
+    icons: ['pregnant', 'cardiac'],
   },
   about: {
     description: 'Bellows Breath — forceful, equal inhalations and exhalations through the nose, driven by the diaphragm. 3 rounds of 10 breaths with a 20-second rest. Unlike Kapalabhati, both the inhale and exhale are active and equal.',

@@ -22,9 +22,147 @@ body { min-height: 100dvh; overflow-y: auto; }
   bottom: 0;
   z-index: 10;
 }
+
+/* Disclaimer modal */
+.disclaimer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.80);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.disclaimer-overlay.hidden { display: none; }
+.disclaimer-box {
+  background: var(--tb-bg);
+  border: 1px solid var(--tb-border);
+  border-radius: 16px;
+  max-width: 460px;
+  width: 100%;
+  padding: 32px 28px 28px;
+  color: var(--text);
+}
+.disclaimer-box h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 14px;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.disclaimer-box > p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0 0 10px;
+}
+.disclaimer-box ul {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text-dim);
+  margin: 0 0 14px;
+  padding-left: 18px;
+}
+.disclaimer-box ul li { margin-bottom: 2px; }
+.disclaimer-legal {
+  font-size: 11px;
+  color: var(--text-ghost);
+  margin: 14px 0 24px;
+  font-style: italic;
+  line-height: 1.5;
+}
+.disclaimer-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: opacity 0.15s;
+}
+.disclaimer-btn:hover { opacity: 0.88; }
+
+/* Tooltip (desktop / fine pointer only) */
+.exercise-tooltip {
+  position: fixed;
+  z-index: 500;
+  max-width: 270px;
+  width: max-content;
+  background: var(--bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+}
+.exercise-tooltip.visible { opacity: 1; }
+.tip-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  margin: 0 0 8px;
+}
+.tip-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.tip-trait {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.tip-warns {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-shrink: 0;
+}
+@media (pointer: coarse) {
+  .exercise-tooltip { display: none !important; }
+}
 </style>
 </head>
 <body class="theme-dark">
+
+<!-- Disclaimer modal -->
+<div class="disclaimer-overlay hidden" id="disclaimerOverlay" role="dialog" aria-modal="true" aria-labelledby="disclaimerTitle">
+  <div class="disclaimer-box">
+    <h2 id="disclaimerTitle">Before you begin</h2>
+    <p>Breathing exercises affect your body, mind, and alertness. By pressing "I understand" you confirm that you:</p>
+    <ul>
+      <li>Will only practise while <strong>seated or lying down</strong> in a safe environment</li>
+      <li>Will <strong>not</strong> practise while driving, operating machinery, or near water</li>
+      <li>Will stop immediately if you feel dizzy, faint, or unwell</li>
+      <li>Understand that certain exercises are contraindicated in pregnancy, epilepsy, cardiovascular disease, hypertension, and other conditions — check the ⚠ icon on each exercise before proceeding</li>
+      <li>Assume full responsibility for your own safety</li>
+    </ul>
+    <p class="disclaimer-legal">This app is for wellness purposes only and is not a medical device. The author makes no medical claims and accepts no liability for any injury, adverse outcome, or harm resulting from use of this application. Always consult a qualified healthcare professional before beginning any new breathing practice.</p>
+    <button class="disclaimer-btn" id="disclaimerBtn">I understand, let's breathe</button>
+  </div>
+</div>
+
+<!-- Shared tooltip element (populated by JS) -->
+<div class="exercise-tooltip" id="exerciseTooltip" role="tooltip" aria-hidden="true">
+  <p class="tip-desc" id="tipDesc"></p>
+  <div class="tip-footer">
+    <span class="tip-trait" id="tipTrait"></span>
+    <span class="tip-warns" id="tipWarns"></span>
+  </div>
+</div>
 
 <div class="sky-layer">
   <svg viewBox="0 0 1440 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,27 +185,57 @@ body { min-height: 100dvh; overflow-y: auto; }
 
     <div class="tier-section">
       <div class="tier-label">Foundations</div>
-      <a class="exercise-btn" href="./box/">Box Breathing</a>
-      <a class="exercise-btn" href="./coherent/">Coherent Breathing</a>
-      <a class="exercise-btn" href="./478/">4-7-8 Breathing</a>
-      <a class="exercise-btn" href="./diaphragmatic/">Diaphragmatic</a>
-      <a class="exercise-btn" href="./sigh/">Physiological Sigh</a>
-      <a class="exercise-btn" href="./nadi/">Nadi Shodhana</a>
+      <a class="exercise-btn" href="./box/"
+        data-tip="Equal inhale · hold · exhale · hold: structured calm for the nervous system."
+        data-trait="Grounding">Box Breathing</a>
+      <a class="exercise-btn" href="./coherent/"
+        data-tip="5.5 s in / 5.5 s out: maximises heart-rate variability and cardiac coherence."
+        data-trait="Relaxing">Coherent Breathing</a>
+      <a class="exercise-btn" href="./478/"
+        data-tip="Long exhale activates the parasympathetic nervous system — the quickest way to down-regulate."
+        data-trait="Relaxing">4-7-8 Breathing</a>
+      <a class="exercise-btn" href="./diaphragmatic/"
+        data-tip="Belly breathing resets chronic chest-breath tension and deepens the breath."
+        data-trait="Grounding">Diaphragmatic</a>
+      <a class="exercise-btn" href="./sigh/"
+        data-tip="Double inhale + long exhale: the fastest known way to reduce acute stress."
+        data-trait="Relaxing">Physiological Sigh</a>
+      <a class="exercise-btn" href="./nadi/"
+        data-tip="Alternate-nostril breathing balances the left and right sides of the nervous system."
+        data-trait="Balancing"
+        data-warn="pregnant">Nadi Shodhana</a>
     </div>
 
     <div class="tier-section">
       <div class="tier-label">Yoga · Pranayama</div>
-      <a class="exercise-btn" href="./ujjayi/">Ujjayi</a>
-      <a class="exercise-btn" href="./bhramari/">Bhramari</a>
-      <a class="exercise-btn" href="./lions/">Lion's Breath</a>
-      <a class="exercise-btn" href="./sitali/">Sitali</a>
+      <a class="exercise-btn" href="./ujjayi/"
+        data-tip="Ocean breath: slow nasal breath with gentle throat constriction, warming and centering."
+        data-trait="Grounding">Ujjayi</a>
+      <a class="exercise-btn" href="./bhramari/"
+        data-tip="Humming exhale stimulates the vagus nerve and induces a deep parasympathetic state."
+        data-trait="Relaxing">Bhramari</a>
+      <a class="exercise-btn" href="./lions/"
+        data-tip="Big forceful exhale releases jaw, face, and neck tension — a one-minute emotional reset."
+        data-trait="Energising">Lion's Breath</a>
+      <a class="exercise-btn" href="./sitali/"
+        data-tip="Tongue-curl inhale cools the body, soothes inflammation, and calms the mind."
+        data-trait="Relaxing">Sitali</a>
     </div>
 
     <div class="tier-section">
       <div class="tier-label">Advanced</div>
-      <a class="exercise-btn advanced" href="./wimhof/">Wim Hof</a>
-      <a class="exercise-btn advanced" href="./kapalabhati/">Kapalabhati</a>
-      <a class="exercise-btn advanced" href="./bhastrika/">Bhastrika</a>
+      <a class="exercise-btn advanced" href="./wimhof/"
+        data-tip="Controlled hyperventilation + empty-lung retention floods the body with adrenaline."
+        data-trait="Intense"
+        data-warn="pregnant,cardiac">Wim Hof</a>
+      <a class="exercise-btn advanced" href="./kapalabhati/"
+        data-tip="Rapid abdominal pumping energises, clears the sinuses, and sharpens mental focus."
+        data-trait="Energising"
+        data-warn="pregnant,cardiac">Kapalabhati</a>
+      <a class="exercise-btn advanced" href="./bhastrika/"
+        data-tip="Bellows breath: forceful equal inhale + exhale stokes internal fire and circulation."
+        data-trait="Intense"
+        data-warn="pregnant,cardiac">Bhastrika</a>
     </div>
 
   </div>
@@ -86,6 +254,7 @@ body { min-height: 100dvh; overflow-y: auto; }
 </div>
 
 <script>
+// ── Theme ──────────────────────────────────────────────────────────────────
 const THEME_KEY = 'breathingTheme';
 let currentTheme = localStorage.getItem(THEME_KEY) || 'dark';
 document.body.className = 'theme-' + currentTheme;
@@ -99,6 +268,68 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
     document.querySelectorAll('.theme-btn').forEach(b =>
       b.classList.toggle('active', b.dataset.theme === currentTheme));
   });
+});
+
+// ── Disclaimer ─────────────────────────────────────────────────────────────
+if (!localStorage.getItem('disclaimer_ack')) {
+  document.getElementById('disclaimerOverlay').classList.remove('hidden');
+}
+document.getElementById('disclaimerBtn').addEventListener('click', () => {
+  localStorage.setItem('disclaimer_ack', '1');
+  document.getElementById('disclaimerOverlay').classList.add('hidden');
+});
+
+// ── Tooltips ───────────────────────────────────────────────────────────────
+const TRAIT_COLORS = {
+  Relaxing:   { bg: 'rgba(59,130,246,0.15)',  fg: '#60a5fa' },
+  Energising: { bg: 'rgba(249,115,22,0.15)',  fg: '#fb923c' },
+  Grounding:  { bg: 'rgba(34,197,94,0.15)',   fg: '#4ade80' },
+  Intense:    { bg: 'rgba(239,68,68,0.15)',   fg: '#f87171' },
+  Balancing:  { bg: 'rgba(168,85,247,0.15)',  fg: '#c084fc' },
+  Clarifying: { bg: 'rgba(20,184,166,0.15)',  fg: '#2dd4bf' },
+};
+
+const SVG_PREGNANT = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" title="Not recommended during pregnancy"><circle cx="12" cy="5" r="2.5"/><path d="M10 9h4l1 5c.5 2.5-.5 5-3 5.5-2.5.5-4.5-1.5-4-4z"/><line x1="5" y1="4" x2="19" y2="20" stroke="#ef4444" stroke-width="1.5"/></svg>`;
+
+const SVG_CARDIAC = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" title="Caution with heart or blood pressure conditions"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><line x1="12" y1="9" x2="12" y2="13" stroke="white" stroke-width="1.5"/><circle cx="12" cy="16" r="0.8" fill="white"/></svg>`;
+
+const WARN_SVGS = { pregnant: SVG_PREGNANT, cardiac: SVG_CARDIAC };
+
+const tooltip   = document.getElementById('exerciseTooltip');
+const tipDesc   = document.getElementById('tipDesc');
+const tipTrait  = document.getElementById('tipTrait');
+const tipWarns  = document.getElementById('tipWarns');
+
+function positionTooltip(btn) {
+  const rect = btn.getBoundingClientRect();
+  const tw = tooltip.offsetWidth || 270;
+  const th = tooltip.offsetHeight || 70;
+  let left = rect.left + rect.width / 2 - tw / 2;
+  let top  = rect.top - th - 10;
+  left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+  if (top < 8) top = rect.bottom + 10;
+  tooltip.style.left = left + 'px';
+  tooltip.style.top  = top  + 'px';
+}
+
+document.querySelectorAll('.exercise-btn[data-tip]').forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    tipDesc.textContent = btn.dataset.tip || '';
+
+    const trait = btn.dataset.trait || '';
+    const colors = TRAIT_COLORS[trait] || { bg: 'rgba(99,179,237,0.15)', fg: '#63b3ed' };
+    tipTrait.textContent = trait;
+    tipTrait.style.background = colors.bg;
+    tipTrait.style.color = colors.fg;
+
+    const warns = (btn.dataset.warn || '').split(',').filter(Boolean);
+    tipWarns.innerHTML = warns.map(w => WARN_SVGS[w] || '').join('');
+
+    tooltip.classList.add('visible');
+    positionTooltip(btn);
+  });
+  btn.addEventListener('mousemove', () => positionTooltip(btn));
+  btn.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
 });
 </script>
 </body>
