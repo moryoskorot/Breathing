@@ -19,8 +19,10 @@ const powerRound = {
   ],
   count: 30,
   endPhases: [
-    { label: 'Holding in', duration: 120, audio: 'silent', scale: 'hold', openEnded: true, hint: 'tap to exhale' },
-    { label: 'Recovery',   duration: 15,  audio: 'nasal-in', scale: 'inhale', via: 'nose' },
+    { label: 'Hold (empty)', duration: 120, audio: 'silent', scale: 'hold', openEnded: true, hint: 'tap to inhale' },
+    { label: 'Inhale',       duration: 3,   audio: 'nasal-in', scale: 'inhale', via: 'nose' },
+    { label: 'Hold',         duration: 15,  audio: 'silent', scale: 'hold' },
+    { label: 'Exhale',       duration: 4,   audio: 'nasal-out', scale: 'exhale', via: 'nose' },
   ],
   restPhase: { label: 'Rest', duration: 15, audio: 'silent', scale: 'hold' },
 };
@@ -37,7 +39,7 @@ BreathingEngine.init({
     icons: ['pregnant', 'cardiac'],
   },
   about: {
-    description: '3 rounds of 30 power breaths (deep inhale, relaxed exhale), followed by an empty-lung retention held as long as comfortable, then a 15-second recovery hold. Always seated or lying down.',
+    description: '3 rounds of 30 power breaths (deep inhale, relaxed exhale), followed by an empty-lung retention held as long as comfortable (tap the orb when you need to breathe), then a deep recovery inhale held for 15 seconds, and a slow exhale. Always seated or lying down.',
     benefits: [
       'Documented immune modulation: TNF-α 53% lower, IL-10 194% higher (Kox et al., PNAS 2014)',
       'Adrenaline surge and transient respiratory alkalosis',

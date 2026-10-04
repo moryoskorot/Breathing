@@ -355,7 +355,10 @@
       $.roundInfo.style.display = '';
       if ($.roundLabel) $.roundLabel.textContent = _cfg.rounds.length > 1 ? `Round ${_s.roundIdx + 1} / ${_cfg.rounds.length}` : '';
       if ($.breathLabel) {
-        if (_s.cMode === 'cycle') $.breathLabel.textContent = `${_s.breathCount + 1} / ${round.count}`;
+        if (_s.cMode === 'cycle') {
+          const ph = curPhase();
+          $.breathLabel.textContent = `${ph ? ph.label + ' · ' : ''}${_s.breathCount + 1} / ${round.count}`;
+        }
         else if (_s.cMode === 'rest') $.breathLabel.textContent = 'Rest';
         else $.breathLabel.textContent = '';
       }
@@ -404,8 +407,9 @@
         _s.breathCount++;
         if (_s.breathCount >= round.count) {
           _s.breathCount = 0;
-          if (round.endPhases?.length) { _s.cMode = 'end'; _s.endIdx = 0; }
-          else nextRound(); return;
+          if (round.endPhases?.length) { _s.cMode = 'end'; _s.endIdx = 0; startPhase(); }
+          else nextRound();
+          return;
         }
         _s.phaseIdx = 0;
       } else { _s.phaseIdx = nextIn; }
