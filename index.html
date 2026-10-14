@@ -12,7 +12,7 @@ body { min-height: 100dvh; overflow-y: auto; padding-bottom: 36px; }
 /* padding so last exercise card isn't hidden behind site-footer */
 body { padding-bottom: 40px; }
 
-/* Disclaimer modal */
+/* Safety welcome */
 .disclaimer-overlay {
   position: fixed;
   inset: 0;
@@ -48,20 +48,28 @@ body { padding-bottom: 40px; }
   color: var(--text-dim);
   margin: 0 0 10px;
 }
-.disclaimer-box ul {
-  font-size: 13px;
-  line-height: 1.75;
+.disclaimer-details {
+  margin: 18px 0 24px;
   color: var(--text-dim);
-  margin: 0 0 14px;
+}
+.disclaimer-details summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--accent);
+}
+.disclaimer-details-content {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+.disclaimer-details ul {
+  margin: 10px 0;
   padding-left: 18px;
 }
-.disclaimer-box ul li { margin-bottom: 2px; }
+.disclaimer-details li { margin-bottom: 4px; }
 .disclaimer-legal {
-  font-size: 11px;
   color: var(--text-ghost);
-  margin: 14px 0 24px;
   font-style: italic;
-  line-height: 1.5;
 }
 .disclaimer-btn {
   width: 100%;
@@ -127,20 +135,23 @@ body { padding-bottom: 40px; }
 </head>
 <body class="theme-dark">
 
-<!-- Disclaimer modal -->
+<!-- One-time safety welcome -->
 <div class="disclaimer-overlay hidden" id="disclaimerOverlay" role="dialog" aria-modal="true" aria-labelledby="disclaimerTitle">
   <div class="disclaimer-box">
     <h2 id="disclaimerTitle">Before you begin</h2>
-    <p>Breathing exercises affect your body, mind, and alertness. By pressing "I understand" you confirm that you:</p>
-    <ul>
-      <li>Will only practise while <strong>seated or lying down</strong> in a safe environment</li>
-      <li>Will <strong>not</strong> practise while driving, operating machinery, or near water</li>
-      <li>Will stop immediately if you feel dizzy, faint, or unwell</li>
-      <li>Understand that certain exercises are contraindicated in pregnancy, epilepsy, cardiovascular disease, hypertension, and other conditions — check the ⚠ icon on each exercise before proceeding</li>
-      <li>Assume full responsibility for your own safety</li>
-    </ul>
-    <p class="disclaimer-legal">This app is for wellness purposes only and is not a medical device. The author makes no medical claims and accepts no liability for any injury, adverse outcome, or harm resulting from use of this application. Always consult a qualified healthcare professional before beginning any new breathing practice.</p>
-    <button class="disclaimer-btn" id="disclaimerBtn">I understand, let's breathe</button>
+    <p>Breathe seated or lying down. Stop if you feel dizzy, faint, or unwell.</p>
+    <details class="disclaimer-details">
+      <summary>Read full safety information</summary>
+      <div class="disclaimer-details-content">
+        <p>Do not practise while driving, operating machinery, or near water. Some exercises have additional contraindications; review the guidance for each practice before you begin.</p>
+        <ul>
+          <li>Choose a safe, comfortable place where you can stop at any time.</li>
+          <li>Consult a qualified healthcare professional before trying a new practice if you are pregnant or have a health condition.</li>
+        </ul>
+        <p class="disclaimer-legal">This app is for wellness purposes only and is not a medical device. It does not replace medical advice.</p>
+      </div>
+    </details>
+    <button class="disclaimer-btn" id="disclaimerBtn">Continue</button>
   </div>
 </div>
 

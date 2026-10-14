@@ -660,18 +660,28 @@
   /* ── Safety screen (advanced exercises) ─────────────────── */
   function maybeInjectSafety(safety) {
     if (!safety?.body) return;
-    const key = 'ack_' + (safety.key || 'adv');
+    // Versioned acknowledgement makes the stronger, exercise-specific check
+    // appear once for existing users without making it an every-visit gate.
+    const key = 'ack_v2_' + (safety.key || 'adv');
     if (localStorage.getItem(key)) return;
     const overlay = document.createElement('div');
     overlay.className = 'safety-overlay'; overlay.id = 'safetyOverlay';
-    overlay.innerHTML = `<div class="safety-modal">
+    overlay.innerHTML = `<div class="safety-modal" role="dialog" aria-modal="true" aria-labelledby="safetyTitle">
       <div class="safety-icon">⚠</div>
-      <h2>${safety.title || 'Safety Notice'}</h2>
+      <h2 id="safetyTitle">${safety.title || 'Safety Notice'}</h2>
       <p>${safety.body}</p>
-      <button class="safety-btn" id="safetyOk">I understand — continue</button>
+      <details class="safety-details">
+        <summary>Read the full safety guidance</summary>
+        <p>${safety.details || safety.body}</p>
+      </details>
+      <label class="safety-confirm"><input type="checkbox" id="safetyConfirm"> I have read this guidance and will stop if I feel unwell.</label>
+      <button class="safety-btn" id="safetyOk" disabled>Continue to practice</button>
     </div>`;
     document.body.appendChild(overlay);
-    document.getElementById('safetyOk').addEventListener('click', () => {
+    const confirmation = document.getElementById('safetyConfirm');
+    const continueBtn = document.getElementById('safetyOk');
+    confirmation.addEventListener('change', () => { continueBtn.disabled = !confirmation.checked; });
+    continueBtn.addEventListener('click', () => {
       localStorage.setItem(key, '1'); overlay.remove();
     });
   }
