@@ -507,19 +507,17 @@
   function buildPage(cfg) {
     const icons    = cfg.safety?.icons || [];
     const bookSVG  = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
-    const pregSVG  = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="4.5" r="2.2"/><path d="M9.5 7.5 C8 8.5 7.5 10.5 7.5 12.5 C7.5 16 9.5 18.5 12 19 C14.5 18.5 16.5 16 16.5 12.5 C16.5 10.5 16 8.5 14.5 7.5Z"/><path d="M7.5 12.5 C5.5 12.5 5 14.5 6.5 15.5"/><line x1="4" y1="4" x2="20" y2="20" stroke-width="1.6"/></svg>`;
-    const cardSVG  = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z"/><line x1="12" y1="9" x2="12" y2="13.5"/><circle cx="12" cy="15.5" r="0.6" fill="currentColor"/></svg>`;
-    const pregBtn  = icons.includes('pregnant')
-      ? `<button class="warn-btn warn-pregnant" data-tip="Not safe during pregnancy">${pregSVG}</button>` : '';
-    const cardBtn  = icons.includes('cardiac')
-      ? `<button class="warn-btn warn-cardiac"  data-tip="Caution: heart or BP conditions">${cardSVG}</button>` : '';
+    const safetyLabels = [
+      icons.includes('pregnant') ? '<span class="safety-label safety-pregnancy">Avoid during pregnancy</span>' : '',
+      icons.includes('cardiac') ? '<span class="safety-label safety-cardiac">Avoid with heart or blood-pressure conditions</span>' : '',
+    ].join('');
 
     document.body.insertAdjacentHTML('afterbegin', `
 <div class="sky-layer"><svg viewBox="0 0 1440 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4d8fe8"/><stop offset="100%" stop-color="#7fb5fa"/></linearGradient></defs><path fill="url(#skyGrad)" d="M0,0 L1440,0 L1440,260 C1360,235 1280,272 1160,248 C1040,224 940,268 800,245 C660,222 560,262 400,238 C280,220 160,255 0,235 Z"/></svg></div>
 <div class="header" id="pageHeader">
   <a class="back-btn" href="../" title="Back">←</a>
   <div class="title" id="pageTitle">${cfg.title}</div>
-  <div class="header-warns" id="headerWarns">${pregBtn}${cardBtn}</div>
+  <div class="header-warns" id="headerWarns">${safetyLabels}</div>
   <button class="about-btn" id="aboutBtn" title="About">${bookSVG}</button>
 </div>
 <!-- NEVER move stage-center out of stage — the orb is ALWAYS centered here -->
@@ -745,15 +743,6 @@
     document.querySelectorAll('.theme-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.theme === _s.theme);
       btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
-    });
-
-    /* warn-btn: instant tooltip on tap (mobile) */
-    document.querySelectorAll('.warn-btn[data-tip]').forEach(btn => {
-      btn.addEventListener('touchstart', e => {
-        e.preventDefault();
-        const open = btn.classList.toggle('tip-open');
-        if (open) setTimeout(() => btn.classList.remove('tip-open'), 2500);
-      }, { passive: false });
     });
 
     document.addEventListener('keydown', e => {
